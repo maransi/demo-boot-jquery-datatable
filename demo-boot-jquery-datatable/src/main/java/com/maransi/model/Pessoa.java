@@ -66,7 +66,7 @@ public class Pessoa {
 	@Size(min=10, max=100, message="Cidade deve conter tamanho minimo de 10 dígitos")
 	private String cidade;
 	
-	@Column(nullable=false)
+	@Column(nullable=false, length=2, name="estado")
 	@NotNull(message="Estado não pode ser vazio")
 	@Enumerated(EnumType.STRING)	// Informa ao bd que o conteúdo deverá ser salvo como STRING
 	private UF estado;
