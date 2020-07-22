@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Spring Boot + JPA + Datatables</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+</head>
+
+<body>
+	<div style="width : 60%; text-align: center;">
+		<h1>Cadastro de Pessoas</h1>
+		<table id="pessoaTable" class="display" >
+
+			<!-- Header Table -->
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>CPF</th>
+					<th>Nome</th>
+					<th>Endereço</th>
+					<th>Cidade</th>
+					<th>Estado</th>
+					<th>CEP</th>
+					<th>Dt Nasc</th>
+					<th>Telefone</th>
+					<th>Salário</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>106.523.608-58</td>
+					<td>MARCO ANTONIO DA SILVA</td>
+					<td>R CARIOBA 360</td>
+					<td>SAO PAULO</td>
+					<td>SP</td>
+					<td>02423-100</td>
+					<td>17/10/1966</td>
+					<td>(11) 9 8336-1336</td>
+					<td>R$ 1.000,00</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Id</th>
+					<th>CPF</th>
+					<th>Nome</th>
+					<th>Endereço</th>
+					<th>Cidade</th>
+					<th>Estado</th>
+					<th>CEP</th>
+					<th>Dt Nasc</th>
+					<th>Telefone</th>
+					<th>Salário</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+<script>
+	$(document).ready(function() {
+		$('#pessoaTable').DataTable();
+	});
+</script>
+</html>
