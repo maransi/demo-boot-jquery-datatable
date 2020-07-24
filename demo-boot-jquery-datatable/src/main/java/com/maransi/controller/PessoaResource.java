@@ -21,8 +21,9 @@ public class PessoaResource {
 	PessoaService pessoaService;
 	
 	@RequestMapping( method=RequestMethod.GET, 
-						consumes = MediaType.APPLICATION_JSON_VALUE, 
-						headers = "Accept=*/*")
+					produces=MediaType.APPLICATION_JSON_VALUE ,
+					headers = "Accept=*/*")
+//	@GetMapping(produces = "application/json")	
 	public @ResponseBody List<Pessoa> findByNome( @RequestBody Pessoa pessoa ){
 		System.out.println(pessoa.getNome());
 		
@@ -30,7 +31,7 @@ public class PessoaResource {
 		
 		System.out.println(pessoas.toString());
 		
-		return (List<Pessoa>) pessoas;
+		return pessoas;
 	}
 	
 }

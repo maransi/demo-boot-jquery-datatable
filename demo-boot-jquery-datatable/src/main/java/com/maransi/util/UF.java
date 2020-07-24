@@ -4,6 +4,7 @@ public enum UF {
 	AC("AC", "Acre"), 
 	AL("AL", "Alagoas"),
 	AM("AM", "Amazonas"),
+	AP("AP", "Amapá"),
 	BA("BA", "Bahia"),
 	CE("CE", "Ceará"),
 	DF("DF", "Distrito Federal"),

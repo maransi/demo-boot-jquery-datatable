@@ -25,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maransi.util.CpfCnpj;
 import com.maransi.util.UF;
 
@@ -88,8 +89,11 @@ public class Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pessoa(String cpf, String nome, LocalDate datNasc, String endereco, String cidade, String cep,
-			String foneRes, BigDecimal salario, UF estado) {
+	public Pessoa(@JsonProperty("cpf") String cpf, @JsonProperty("nome") String nome, 
+			@JsonProperty("datNasc") LocalDate datNasc, @JsonProperty("endereco") String endereco, 
+			@JsonProperty("cidade") String cidade, @JsonProperty("cep") String cep,
+			@JsonProperty("foneRes") String foneRes, @JsonProperty("salario") BigDecimal salario, 
+			@JsonProperty("estado") UF estado) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
