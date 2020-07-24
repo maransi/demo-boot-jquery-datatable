@@ -19,54 +19,62 @@
 </head>
 
 <body>
-	<div style="width : 60%; text-align: center;">
-		<h1>Cadastro de Pessoas</h1>
-		<table id="pessoaTable" class="display" >
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-10 col-md-8">
+				<h1>Cadastro de Pessoas</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-10  col-md-8">
+				<table id="pessoaTable" class="table table-striped table-bordered" style="width:100%;"> 
 
-			<!-- Header Table -->
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>CPF</th>
-					<th>Nome</th>
-					<th>Endereço</th>
-					<th>Cidade</th>
-					<th>Estado</th>
-					<th>CEP</th>
-					<th>Dt Nasc</th>
-					<th>Telefone</th>
-					<th>Salário</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>106.523.608-58</td>
-					<td>MARCO ANTONIO DA SILVA</td>
-					<td>R CARIOBA 360</td>
-					<td>SAO PAULO</td>
-					<td>SP</td>
-					<td>02423-100</td>
-					<td>17/10/1966</td>
-					<td>(11) 9 8336-1336</td>
-					<td>R$ 1.000,00</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<th>Id</th>
-					<th>CPF</th>
-					<th>Nome</th>
-					<th>Endereço</th>
-					<th>Cidade</th>
-					<th>Estado</th>
-					<th>CEP</th>
-					<th>Dt Nasc</th>
-					<th>Telefone</th>
-					<th>Salário</th>
-				</tr>
-			</tfoot>
-		</table>
+					<!-- Header Table -->
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>CPF</th>
+							<th>Nome</th>
+							<th>Endereço</th>
+							<th>Cidade</th>
+							<th>Estado</th>
+							<th>CEP</th>
+							<th>Dt Nasc</th>
+							<th>Telefone</th>
+							<th>Salário</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>106.523.608-58</td>
+							<td>MARCO ANTONIO DA SILVA</td>
+							<td>R CARIOBA 360</td>
+							<td>SAO PAULO</td>
+							<td>SP</td>
+							<td>02423-100</td>
+							<td>17/10/1966</td>
+							<td>(11) 9 8336-1336</td>
+							<td>R$ 1.000,00</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Id</th>
+							<th>CPF</th>
+							<th>Nome</th>
+							<th>Endereço</th>
+							<th>Cidade</th>
+							<th>Estado</th>
+							<th>CEP</th>
+							<th>Dt Nasc</th>
+							<th>Telefone</th>
+							<th>Salário</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 <script>
@@ -75,3 +83,38 @@
 	});
 </script>
 </html>
+
+<!-- 
+<script type="text/javascript">
+    function send() {
+        var person = {
+            name: $("#id-name").val(),
+            address:$("#id-address").val(),
+            phone:$("#id-phone").val()
+        }
+
+        $('#target').html('sending..');
+
+        $.ajax({
+            url: '/test/PersonSubmit',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            success: function (data) {
+                $('#target').html(data.msg);
+            },
+            data: JSON.stringify(person)
+        });
+    }
+</script>
+
+https://www.airpair.com/js/jquery-ajax-post-tutorial
+
+Fazer resumo rest com as páginas abaixo:
+
+https://www.tutorialspoint.com/restful/index.htm
+https://www.restapitutorial.com/lessons/httpmethods.html
+https://www.brunobrito.net.br/padrao-rest/
+
+
+ -->

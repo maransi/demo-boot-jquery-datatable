@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PessoaController {
 
-	@RequestMapping("/cadastro")
+	@RequestMapping("pessoa/home")
 	public String cadastro() {
 		
 		return "pessoa/pessoa";
