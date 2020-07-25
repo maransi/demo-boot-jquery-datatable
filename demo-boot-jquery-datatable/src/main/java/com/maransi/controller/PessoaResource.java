@@ -24,9 +24,7 @@ public class PessoaResource {
 					produces=MediaType.APPLICATION_JSON_VALUE ,
 					headers = "Accept=*/*")
 //	@GetMapping(produces = "application/json")	
-	public @ResponseBody List<Pessoa> findByNome( @RequestBody Pessoa pessoa ){
-		System.out.println(pessoa.getNome());
-		
+	public @ResponseBody List<Pessoa> findByNome(  Pessoa pessoa ){
 		List<Pessoa> pessoas = pessoaService.findByNome(pessoa.getNome());
 		
 		System.out.println(pessoas.toString());
