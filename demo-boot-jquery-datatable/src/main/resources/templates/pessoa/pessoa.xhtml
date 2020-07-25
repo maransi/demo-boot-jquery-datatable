@@ -26,10 +26,8 @@
 				<h1>Cadastro de Pessoas</h1>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-12  col-md-12">
-				<table id="pessoaTable" class="table" style="width:100%;"> 
-
+		<div class="table-responsive">
+				<table id="pessoaTable" class="table"    style="width:100%;"> 
 					<!-- Header Table -->
 					<thead>
 						<tr>
@@ -45,7 +43,6 @@
 						</tr>
 					</thead>
 				</table>
-			</div>
 		</div>
 	</div>
 </body>
@@ -53,7 +50,8 @@
 	$(document).ready(function() {
 		
         var pessoa = {
-       		"nome" : "LOURIVAL"
+       		"nome" : "MARCO ANTONIO",
+       		"cpf" : ""
         }
         
        	 var table = $('#pessoaTable').DataTable({
@@ -84,7 +82,18 @@
                 "lengthChange": true,
                 "processing" : true,
                 "serverSide" : false,
-       			"aoColumns": [
+                // https://www.w3schools.com/bootstrap4/bootstrap_typography.asp
+/*                 "columnDefs": [ {"targets": [0], "width" : "10%", "className" : "small"}, 
+			    				{"targets": [1], "width" : "25%", "className" : "text-break small"}, 
+			    				{"targets": [2], "width" : "25%", "className" : "small"}, 
+			    				{"targets": [3], "width" : "15%", "className" : "small"}, 
+			    				{"targets": [4], "width" : "5%", "className" : "small"}, 
+			    				{"targets": [5], "width" : "5%", "className" : "small"}, 
+			    				{"targets": [6], "width" : "10%", "className" : "small"}, 
+			    				{"targets": [7], "width" : "10%", "className" : "small"}, 
+                				{"targets": [8], "width" : "10%", "className" : "small"}
+                 ],
+*/    			"aoColumns": [
        			      { "mData": "cpf"},
        		          { "mData": "nome" },
        				  { "mData": "endereco" },
