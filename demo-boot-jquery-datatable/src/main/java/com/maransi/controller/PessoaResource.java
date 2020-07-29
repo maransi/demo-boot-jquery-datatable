@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,15 +22,20 @@ public class PessoaResource {
 	@Autowired
 	PessoaService pessoaService;
 
+	
+// Testar ( Retornar o @RquestBody; No construtor da classe Pessoa adcionar a annotation @JsonProperty	
+	
 	@RequestMapping(// value="/nome",
-			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, headers = "Accept=*/*")
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, 
+					headers = "Accept=*/*")
 //	@GetMapping(produces = "application/json")	
-	public @ResponseBody List<Pessoa> findPessoa(Pessoa pessoa) {
+//  No postman colocar os parametros como "form-data"
+	public @ResponseBody List<Pessoa> findPessoa( Pessoa pessoa) {
 		List<Pessoa> pessoas = null;
 
-		if (!pessoa.getNome().isEmpty()) {
+		if ( pessoa.getNome() != null && pessoa.getNome().trim() != "") {
 			pessoas = pessoaService.findByNome(pessoa.getNome());
-		} else if (!pessoa.getCpf().isEmpty()) {
+		} else if ( pessoa.getCpf() != null && pessoa.getCpf().trim() != "" ) {
 			pessoas = new ArrayList<Pessoa>();
 
 			Optional<Pessoa> p = pessoaService.findByCpf(pessoa.getCpf());
