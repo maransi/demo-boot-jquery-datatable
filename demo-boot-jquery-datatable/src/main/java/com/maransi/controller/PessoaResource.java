@@ -45,7 +45,7 @@ public class PessoaResource {
 			}
 		}
 
-		System.out.println(pessoas.toString());
+//		System.out.println(pessoas.toString());
 
 		return pessoas;
 	}

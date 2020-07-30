@@ -89,7 +89,7 @@ public class Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pessoa(@JsonProperty("cpf") String cpf, @JsonProperty("nome") String nome, 
+	public Pessoa( @JsonProperty("cpf") String cpf, @JsonProperty("nome") String nome, 
 			@JsonProperty("datNasc") LocalDate datNasc, @JsonProperty("endereco") String endereco, 
 			@JsonProperty("cidade") String cidade, @JsonProperty("cep") String cep,
 			@JsonProperty("foneRes") String foneRes, @JsonProperty("salario") BigDecimal salario, 
