@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="pt" xmlns="http://www.w3.org/1999¹xhtml" 
+				xmlns:th="http://www.thymeleaf.org"
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="utf-8" />
 <title>Spring Boot + JPA + Datatables</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" th:href="@{/image/favicon.png}" />
 
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
+	
+	<!-- Custom styles for this template -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<link rel="stylesheet"
+			href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!-- 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" -->
-<!-- 	crossorigin="anonymous"></script> -->
+<!-- 
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 	crossorigin="anonymous"></script>
+
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script
 	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
-<!-- Optional theme -->
 <link rel="stylesheet" 
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
 		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -31,6 +43,8 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/css/style.css" />
+-->
+
 </head>
 
 <body>
@@ -50,11 +64,10 @@
                 <div class="form-row  col-md-10">
                     <div class="form-group col-md-3">
                         <label for="cpf-busca">CPF</label>
-                        <input 	type="text" 
+                        <input 	type="text" value="10652360858"
                         		class="form-control  form-control-sm" 
                         		id="cpf-busca"
-                        		name="cpf-busca" 
-                        		data-mask="000.000.000-00" 
+                        		data-mask="000.000.000-00"
 								placeholder="CPF do cliente"
                                	autofocus="autofocus" />
                     </div>
@@ -86,11 +99,12 @@
 									<th>Nome</th>
 									<th>Endereço</th>
 									<th>Cidade</th>
-									<th>Estado</th>
+									<th>UF</th>
 									<th>CEP</th>
 									<th>Dt Nasc</th>
 									<th>Telefone</th>
 									<th>Salário</th>
+									<th>&nbsp;</th>
 								</tr>
 							</thead>
 						</table>
@@ -100,24 +114,21 @@
 		</div>
 	</div>
 </body>
+
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
+<script	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(
-			
 			function() {
-				$('.cpf-busca').mask('000.000.000-00', {reverse: true});
+//				$('#cpf-busca').mask('000.000.000-00');
 				
 				var objPessoa =  { "nome" : "", "cpf" : "" } ;
-				
-// 				$.ajaxSetup({
-// 				    beforeSend: function(jqXHR,options){
-// 				        if ( options.contentType == "application/json" && typeof options.data != "string" ) {
-// 				            options.data = JSON.stringify(options.data);
-// 				        }
-// 				    }
-// 				});
 
-
-				$("#pessoaTable").DataTable({
+				var table = $("#pessoaTable").DataTable({
 					"scrollY" : '100vh',
 					"scrollCollapse" : true,
 					"info" : false,
@@ -152,11 +163,11 @@
 						"className" : "small"
 					}, {
 						"targets" : [ 3 ],
-						"width" : "15%",
+						"width" : "14%",
 						"className" : "small"
 					}, {
 						"targets" : [ 4 ],
-						"width" : "5%",
+						"width" : "3%",
 						"className" : "small"
 					}, {
 						"targets" : [ 5 ],
@@ -164,21 +175,25 @@
 						"className" : "small"
 					}, {
 						"targets" : [ 6 ],
-						"width" : "10%",
+						"width" : "9%",
 						"className" : "small"
 					}, {
 						"targets" : [ 7 ],
-						"width" : "10%",
+						"width" : "9%",
 						"className" : "small"
 					}, {
 						"targets" : [ 8 ],
-						"width" : "10%",
+						"width" : "9%",
+						"className" : "small"
+					}, {
+						"targets" : [ 9 ],
+						"width" : "9%",
 						"className" : "small"
 					} ]
 				});
 					
 					
-
+				// Exemplo de chamada de função JQuery
 				$("#send").on("click",function(){ 
 			        $.ajax({
 			            type: "GET",
@@ -210,7 +225,21 @@
 					"cpf" : ""
 				}
 
+				  $("#pessoaTable").on("click", "tr",  function () {
+					    var data = table.row($(this).parents("tr")).data();
+					    alert(data[0] + "'s salary is: " + data[8]);
+				  });
 				
+			    $('#pessoaTable tbody').on( 'click', 'tr', function () {
+			        if ( $(this).hasClass('selected') ) {
+			            $(this).removeClass('selected');
+			        }
+			        else {
+			            table.$('tr.selected').removeClass('selected');
+			            $(this).addClass('selected');
+			        }
+			    } );
+			 				
 			    $('#btn-pesquisar').on('click',function(){
 			    	$('#pessoaTable').DataTable({
 						"scrollY" : '100vh',
@@ -223,7 +252,7 @@
 			                        'nome': $('#nome-busca').val()
 			                    }
 			                },
-			            "serverSide" : true,
+			            "serverSide" : false,
 			            "destroy" : true,
 						"sAjaxDataProp" : "",
 						"scrollCollapse" : true,
@@ -246,24 +275,28 @@
 						"serverSide" : false,
 						// https://www.w3schools.com/bootstrap4/bootstrap_typography.asp
 						"columnDefs" : [ {
+							"targets" : -1,
+				            "data": "cpf",
+				            "defaultContent":  "<button id='btn-open'  class='btn btn-primary btn-sm'>A</button>&nbsp;<button id='btn-delete' class='btn btn-primary btn-sm'>E</button>"
+						}, {
 							"targets" : [ 0 ],
 							"width" : "12%",
 							"className" : "small"
 						}, {
 							"targets" : [ 1 ],
-							"width" : "23%",
-							"className" : "text-break small"
+							"width" : "13%",
+							"className" : "small"
 						}, {
 							"targets" : [ 2 ],
-							"width" : "25%",
+							"width" : "18%",
 							"className" : "small"
 						}, {
 							"targets" : [ 3 ],
-							"width" : "15%",
+							"width" : "12%",
 							"className" : "small"
 						}, {
 							"targets" : [ 4 ],
-							"width" : "5%",
+							"width" : "3%",
 							"className" : "small"
 						}, {
 							"targets" : [ 5 ],
@@ -271,14 +304,18 @@
 							"className" : "small"
 						}, {
 							"targets" : [ 6 ],
-							"width" : "10%",
+							"width" : "8%",
 							"className" : "small"
 						}, {
 							"targets" : [ 7 ],
-							"width" : "10%",
+							"width" : "8%",
 							"className" : "small"
 						}, {
 							"targets" : [ 8 ],
+							"width" : "8%",
+							"className" : "small"
+						}, {
+							"targets" : [ 9 ],
 							"width" : "10%",
 							"className" : "small"
 						} ],
@@ -300,17 +337,17 @@
 							"mData" : "foneRes"
 						}, {
 							"mData" : "salario"
-						} ]
-			        }).ajax.url().load();
-			    	
-// 					table.ajax.reload();			    	
+						}, {"mData": null} ]
+			        }).ajax.load();
+/*			    	
+ 					table.ajax.reload();			    	
 					
-
-// 					table.ajax.url( '../pessoa/api?cpf=106.523.608-58').load();
-
+ 					table.ajax.url( '../pessoa/api?cpf=106.523.608-58').load();
+*/
 
 				});
 
+				
 				/*        
 				 var table = $('#pessoaTable').DataTable({
 				 "searching": false,
