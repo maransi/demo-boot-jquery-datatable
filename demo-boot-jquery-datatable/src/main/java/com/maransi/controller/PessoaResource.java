@@ -44,6 +44,14 @@ public class PessoaResource {
 			if (p.isPresent()) {
 				pessoas.add(p.get());
 			}
+		} else if ( pessoa.getSequencial() != null && pessoa.getSequencial() > 0 ) {
+			pessoas = new ArrayList<Pessoa>();
+
+			Optional<Pessoa> p = pessoaService.findById(pessoa.getSequencial());
+
+			if (p.isPresent()) {
+				pessoas.add(p.get());
+			}
 		}
 
 		System.out.println(pessoas.toString());

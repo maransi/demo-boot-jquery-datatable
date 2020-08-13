@@ -98,12 +98,33 @@ $(document).ready(function() {
     });
 
 	//Editar        
-	$(document).on("click", ".btnEditar", function(){		        
+	$(document).on("click", ".btnEditar", function(){
+		var pessoaReturn;		        
 	    opcion = 2;//editar
 	    fila = $(this).closest("tr");	        
 	    sequencial = parseInt(fila.find('td:eq(1)').text()); //capturo el ID
 	    
-	    alert( sequencial );
+//	    alert( sequencial );
+	    
+        $.ajax({
+          url: "../pessoa/api",
+          type: "GET",
+          datatype:"json",    
+          data:  {sequencial : sequencial} ,    
+          success: function(data) {
+//              $('#sequencial').val() = response.sequencial;
+//              $('#cpf').val() = data[0].cpf;
+
+pessoaReturn = JSON.parse(data);
+
+for (var i in json) {
+	alert(pessoaReturn[i].cpf);
+}
+
+           }
+        });	
+	    
+	    
 /*
 	    username = fila.find('td:eq(1)').text();
 	    first_name = fila.find('td:eq(2)').text();
@@ -120,8 +141,8 @@ $(document).ready(function() {
 	    $(".modal-header").css("background-color", "#007bff");
 	    $(".modal-header").css("color", "white" );
 	    $(".modal-title").text("Editar Usuario");		
-	    $('#modalCRUD').modal('show');
 */	    		   
+	    $('#modalCRUD').modal('show');
 	});
 
 
