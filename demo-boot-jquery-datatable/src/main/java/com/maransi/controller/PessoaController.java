@@ -9,7 +9,7 @@ public class PessoaController {
 	@RequestMapping("pessoa/home")
 	public String cadastro() {
 		
-		return "pessoa/pessoa";
+		return "pessoa/pessoa2";
 	}
 	
 }

@@ -2,11 +2,12 @@ package com.maransi.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,7 @@ public class PessoaResource {
 					headers = "Accept=*/*")
 //	@GetMapping(produces = "application/json")	
 //  No postman colocar os parametros como "form-data"
-	public @ResponseBody List<Pessoa> findPessoa( Pessoa pessoa) {
+	public @ResponseBody Map<String, List<Pessoa>> findPessoa( Pessoa pessoa) {
 		List<Pessoa> pessoas = null;
 
 		if ( pessoa.getNome() != null && pessoa.getNome().trim() != "") {
@@ -45,9 +46,13 @@ public class PessoaResource {
 			}
 		}
 
-//		System.out.println(pessoas.toString());
+		System.out.println(pessoas.toString());
 
-		return pessoas;
+		Map<String, List<Pessoa>> mapa = new TreeMap<String, List<Pessoa>>();
+		
+		mapa.put("data", pessoas);
+		
+		return mapa;
 	}
 
 }

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999¹xhtml" 
+				xmlns:th="http://www.thymeleaf.org"
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>Spring Boot + JPA + Datatables</title>
+    <!-- Required meta tags -->
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
+	
+	<!-- Custom styles for this template -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<link rel="stylesheet"
+			href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+	<link rel="stylesheet"
+				href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+	<link rel="stylesheet"
+				href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+	<link rel="stylesheet"
+			href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css">
+		
+    <link rel="shortcut icon" href="#" />  
+	<link rel="icon" th:href="@{/image/favicon.png}" />
+    <!-- Bootstrap CSS -->
+    <!-- CSS personalizado --> 
+    <link rel="stylesheet" th:href="@{/css/main.css}">  
+      
+      
+    <!--datables estilo bootstrap 4 CSS-->  
+    <link rel="stylesheet"  type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">    
+      
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  
+  </head>
+    
+  <body> 
+     <header>
+     <h3 class='text-center'></h3>
+     </header>    
+      
+    <div class="container-fluid">
+		<div class="card">
+		  <div class="card-header">
+		    Filtros
+		  </div>
+		  <div class="card-body">
+		  	<form>
+                <div class="form-row  col-md-10">
+                    <div class="form-group col-md-3">
+                        <input 	type="text" 
+                        		class="form-control  form-control-sm" 
+                        		id="cpf-busca"
+                        		data-mask="000.000.000-00"
+								placeholder="CPF do cliente"
+                               	autofocus="autofocus" />
+                    </div>
+                    <div class="form-group col-md-5">
+                        <input 	type="text" value="MARCO%SILVA"
+                        		class="form-control form-control-sm" 
+                        		id="nome-busca" 
+                        		placeholder="Nome"/>
+                    </div>
+                    
+                    <div class="form-group col-md-1">
+			            <button id="btn-pesquisar" type="button" class="btn btn-light btn-sm" data-toggle="tooltip" title="Buscar"><i class="material-icons">search</i></button>
+                    </div>
+                    <div class="form-group col-md-1">
+			            <button id="btnNuevo" type="button" class="btn btn-light btn-sm" data-toggle="tooltip" title="Novo"><span class="material-icons">add_circle</span></button>
+			            <!--  
+                     	<a href="#" id="btn-pesquisar" class="btn btn-primary">Pesquisar</a>
+			            <i class="material-icons">library_add</i></button>
+			            	href="https://fonts.googleapis.com/icon?family=Material+Icons" : Através desse link conseguimos ter
+			            																	 acesso a configuração dos icones através de classes 
+			            	https://material.io/resources/icons/?style=baseline : Site para pesquisar icones
+			            
+			            
+			            
+			             -->
+			                
+                    </div>
+                </div>
+		  	</form>
+		  </div>
+		</div>
+ 		<div class="card" >
+			<div class="card-body">
+		 
+		        <div class="row">
+		            <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+			            <div class="table-responsive">        
+			                <table id="pessoaTable" class="nowrap compact hover" style="width:100%" >
+			                    <thead class="text-center">
+			                        <tr>
+			                        	<th>Ação</th>
+			                        	<th>#</th>
+										<th>CPF</th>
+										<th>Nome</th>
+										<th>Endereço</th>
+										<th>Cidade</th>
+										<th>UF</th>
+										<th>CEP</th>
+										<th>Dt Nasc</th>
+										<th>Telefone</th>
+										<th>Salário</th>
+			                        </tr>
+			                    </thead>
+			                </table>               
+			            </div>
+		            </div>
+		        </div>  
+		    </div>   
+   		</div>   
+    </div>    
+
+
+	<!--Modal para CRUD-->
+	<div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLabel"></h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	        <form id="formUsuarios">    
+	            <div class="modal-body">
+	                <div class="row">
+	                    <div class="col-lg-6">
+		                    <div class="form-group">
+			                    <label for="" class="col-form-label">CPF:</label>
+			                    <input type="text" class="form-control" id="cpf">
+		                    </div>
+	                    </div>
+	                    <div class="col-lg-6">
+		                    <div class="form-group">
+			                    <label for="" class="col-form-label">Nome:</label>
+			                    <input type="text" class="form-control" id="nome">
+		                    </div> 
+	                    </div>    
+	                </div>
+	                <div class="row"> 
+	                    <div class="col-lg-6">
+		                    <div class="form-group">
+			                    <label for="" class="col-form-label">Endereço:</label>
+			                    <input type="text" class="form-control" id="endereco">
+		                    </div>               
+	                    </div>
+	                    <div class="col-lg-6">
+		                    <div class="form-group">
+			                    <label for="" class="col-form-label">Cidade</label>
+			                    <input type="text" class="form-control" id="cidade">
+		                    </div>
+	                    </div>  
+	                </div>
+	                <div class="row">
+	                    <div class="col-lg-9">
+	                        <div class="form-group">
+	                        <label for="" class="col-form-label">Estado</label>
+	                        <input type="text" class="form-control" id="estado">
+	                        </div>
+	                    </div>    
+	                    <div class="col-lg-3">    
+	                        <div class="form-group">
+	                        <label for="" class="col-form-label">CEP</label>
+	                        <input type="number" class="form-control" id="cep">
+	                        </div>            
+	                    </div>    
+	                </div>                
+	                <div class="row">
+	                    <div class="col-lg-3">
+	                        <div class="form-group">
+	                        <label for="" class="col-form-label">Data de Nasc</label>
+	                        <input type="text" class="form-control" id="datNasc">
+	                        </div>
+	                    </div>    
+	                    <div class="col-lg-3">    
+	                        <div class="form-group">
+	                        <label for="" class="col-form-label">Telefone</label>
+	                        <input type="number" class="form-control" id="telefone">
+	                        </div>            
+	                    </div>    
+	                    <div class="col-lg-3">    
+	                        <div class="form-group">
+	                        <label for="" class="col-form-label">Salário</label>
+	                        <input type="number" class="form-control" id="salario">
+	                        </div>            
+	                    </div>    
+	                </div>                
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+	                <button type="submit" id="btnGuardar" class="btn btn-dark">Salvar</button>
+	            </div>
+	        </form>    
+	        </div>
+	    </div>
+	</div>  
+</body>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/jquery-mask-plugin/dist/jquery.mask.min.js}"></script>
+<script	src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<!-- <script	src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script> -->
+<script type="text/javascript" th:src="@{/js/main.js}"></script>  
+      
+</html>
