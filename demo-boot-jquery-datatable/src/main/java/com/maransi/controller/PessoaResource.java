@@ -6,8 +6,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maransi.model.Pessoa;
 import com.maransi.service.PessoaService;
+
+import groovy.util.logging.Slf4j;
 
 @RestController
 @RequestMapping("pessoa/api")
@@ -62,5 +70,40 @@ public class PessoaResource {
 		
 		return mapa;
 	}
+	
+	@RequestMapping( method=RequestMethod.POST, 
+					consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Pessoa> insertPessoa( @Valid @RequestBody  Pessoa pessoa) {
+		try {
+			return ResponseEntity.ok(pessoaService.insert(pessoa));
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
+	@RequestMapping( method = RequestMethod.PUT,
+						consumes = MediaType.APPLICATION_JSON_VALUE,
+						path = "{sequencial}")
+	public ResponseEntity<Pessoa> updatePessoa(@PathVariable Long sequencial, 
+												@Valid @RequestBody Pessoa pessoa){
+		try {
+			if (!pessoaService.findById(sequencial).isPresent() ) {
+	//			ResponseEntity.badRequest().build();
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		
+			Pessoa pessoaUpdated = pessoaService.update(pessoa);
+
+			return ResponseEntity.ok( pessoaUpdated );
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+	}
+	
 }

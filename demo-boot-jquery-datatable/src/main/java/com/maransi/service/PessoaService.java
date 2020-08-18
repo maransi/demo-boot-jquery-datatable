@@ -28,4 +28,12 @@ public class PessoaService {
 		return pessoaRepository.findById(id);
 	}
 	
+	public Pessoa update( Pessoa pessoa) throws Exception{
+		return pessoaRepository.save(pessoa);
+	}
+	
+	public Pessoa insert( Pessoa pessoa ) throws Exception{
+		return pessoaRepository.save(pessoa);
+	}
+	
 }

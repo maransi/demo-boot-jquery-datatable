@@ -25,12 +25,12 @@ $(document).ready(function() {
 
 	//para limpiar los campos antes de dar de Alta una Persona
 	$("#btnNuevo").click(function(){
-	    opcion = 1; //alta           
-	    user_id=null;
-	    $("#formUsuarios").trigger("reset");
+	    $("#formulario-pessoa").trigger("reset");
+
+
 	    $(".modal-header").css( "background-color", "#17a2b8");
 	    $(".modal-header").css( "color", "white" );
-	    $(".modal-title").text("Alta de Usuario");
+	    $(".modal-title").text("Criar Pessoa");
 	    $('#modalCRUD').modal('show');	    
 	});
 	
@@ -100,49 +100,95 @@ $(document).ready(function() {
 	//Editar        
 	$(document).on("click", ".btnEditar", function(){
 		var pessoaReturn;		        
-	    opcion = 2;//editar
 	    fila = $(this).closest("tr");	        
 	    sequencial = parseInt(fila.find('td:eq(1)').text()); //capturo el ID
-	    
-//	    alert( sequencial );
 	    
         $.ajax({
           url: "../pessoa/api",
           type: "GET",
           datatype:"json",    
           data:  {sequencial : sequencial} ,    
-          success: function(data) {
-//              $('#sequencial').val() = response.sequencial;
-//              $('#cpf').val() = data[0].cpf;
-
-pessoaReturn = JSON.parse(data);
-
-for (var i in json) {
-	alert(pessoaReturn[i].cpf);
-}
-
+          success: function(response) {
+				$('#sequencial').val(response.data[0].sequencial);
+				$('#cpf').val(response.data[0].cpf);
+				$('#nome').val(response.data[0].nome);
+				$('#endereco').val(response.data[0].endereco);
+				$('#cidade').val(response.data[0].cidade);
+				$('#estado').val(response.data[0].estado);
+				$('#cep').val(response.data[0].cep);
+				$('#foneRes').val( response.data[0].foneRes );
+				$('#datNasc').val(response.data[0].datNasc);
+				$('#salario').val(response.data[0].salario);
+				$(".modal-header").css("background-color", "#007bff");
+				$(".modal-header").css("color", "white" );
+				$(".modal-title").text("Editar Pessoa");		
            }
         });	
 	    
-	    
-/*
-	    username = fila.find('td:eq(1)').text();
-	    first_name = fila.find('td:eq(2)').text();
-	    last_name = fila.find('td:eq(3)').text();
-	    gender = fila.find('td:eq(4)').text();
-	    password = fila.find('td:eq(5)').text();
-	    status = fila.find('td:eq(6)').text();
-	    $("#username").val(username);
-	    $("#first_name").val(first_name);
-	    $("#last_name").val(last_name);
-	    $("#gender").val(gender);
-	    $("#password").val(password);
-	    $("#status").val(status);
-	    $(".modal-header").css("background-color", "#007bff");
-	    $(".modal-header").css("color", "white" );
-	    $(".modal-title").text("Editar Usuario");		
-*/	    		   
 	    $('#modalCRUD').modal('show');
+	});
+
+	$('#formulario-pessoa').submit(function(e){                         
+	    e.preventDefault(); //evita el comportambiento normal del submit, es decir, recarga total de la página
+	    
+	    
+		var _method;
+		var _params;
+			    
+		var sequencial = $('#sequencial');
+        var cpf = $('#cpf');
+        var nome = $('#nome');
+        var endereco = $('#endereco');
+        var cidade = $('#cidade');
+        var estado = $('#estado');
+        var cep = $('#cep');
+        var foneRes = $('#foneRes');
+        var datNasc = $('#datNasc');
+        var salario = $('#salario');
+
+		if (sequencial !== ''){
+			_params = { url : '../pessoa/api',
+						type : 'POST',
+						datatype : 'json',
+						data : { 	sequencial	: null,
+									cpf 		: cpf,
+									nome 		: nome,
+									endereco 	: endereco,
+									cidade 		: cidade,
+									estado 		: estado,
+									cep 		: cep,
+									foneRes 	: foneRes,
+									datNasc 	: datNasc,
+									salario 	: salario 
+								},
+						success : function( data ){
+									pessoaTable.ajax.reload(null, false);
+								}
+						}
+		} else {
+			_params = { url : '../pessoa/api',
+						type : 'PUT',
+						datatype : 'json',
+						data : { 	sequencial	: null,
+									cpf 		: cpf,
+									nome 		: nome,
+									endereco 	: endereco,
+									cidade 		: cidade,
+									estado 		: estado,
+									cep 		: cep,
+									foneRes 	: foneRes,
+									datNasc 	: datNasc,
+									salario 	: salario 
+								},
+						success : function( data ){
+									pessoaTable.ajax.reload(null, false);
+								}
+						}
+		}
+	                            
+        $.ajax(	_params );			        
+
+	    $('#modalCRUD').modal('hide');											     			
 	});
 
 
