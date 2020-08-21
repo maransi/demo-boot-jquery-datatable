@@ -135,16 +135,16 @@ $(document).ready(function() {
 		var _method;
 		var _params;
 			    
-		var sequencial = $('#sequencial');
-        var cpf = $('#cpf');
-        var nome = $('#nome');
-        var endereco = $('#endereco');
-        var cidade = $('#cidade');
-        var estado = $('#estado');
-        var cep = $('#cep');
-        var foneRes = $('#foneRes');
-        var datNasc = $('#datNasc');
-        var salario = $('#salario');
+		var sequencial = $('#sequencial').val();
+        var cpf = $('#cpf').val();
+        var nome = $('#nome').val();
+        var endereco = $('#endereco').val();
+        var cidade = $('#cidade').val();
+        var estado = $('#estado').val();
+        var cep = $('#cep').val();
+        var foneRes = $('#foneRes').val();
+        var datNasc = $('#datNasc').val();
+        var salario = $('#salario').val();
 
 		if (sequencial !== ''){
 			_params = { url : '../pessoa/api',
@@ -164,7 +164,7 @@ $(document).ready(function() {
 						success : function( data ){
 									pessoaTable.ajax.reload(null, false);
 								}
-						}
+						};
 		} else {
 			_params = { url : '../pessoa/api',
 						type : 'PUT',
@@ -183,10 +183,31 @@ $(document).ready(function() {
 						success : function( data ){
 									pessoaTable.ajax.reload(null, false);
 								}
-						}
+						};
 		}
 	                            
-        $.ajax(	_params );			        
+        $.ajax(	{ url : '../pessoa/api/' + $('#sequencial').val(),
+						type : 'PUT',
+						datatype : 'json',
+						data : { sequencial	: $('#sequencial').val(),
+									cpf 		: cpf,
+									nome 		: nome,
+									endereco 	: endereco,
+									cidade 		: cidade,
+									estado 		: estado,
+									cep 		: cep,
+									foneRes 	: foneRes,
+									datNasc 	: datNasc,
+									salario 	: salario 
+								},
+						success : function( data ){
+//									pessoaTable.ajax.reload(null, false);
+									$('#pessoaTable').DataTable().ajax.reload(null, false);
+								},
+						error : function( error ){
+							alert(error);
+						}
+		});			        
 
 	    $('#modalCRUD').modal('hide');											     			
 	});

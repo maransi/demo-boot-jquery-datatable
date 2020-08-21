@@ -75,7 +75,10 @@ public class PessoaResource {
 					consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Pessoa> insertPessoa( @Valid @RequestBody  Pessoa pessoa) {
 		try {
-			return ResponseEntity.ok(pessoaService.insert(pessoa));
+			Pessoa pessoaInserted = pessoaService.insert(pessoa);
+			
+//			return ResponseEntity.ok(pessoaInserted);
+			return new ResponseEntity<Pessoa>(HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -84,19 +87,20 @@ public class PessoaResource {
 	}
 
 	@RequestMapping( method = RequestMethod.PUT,
-						consumes = MediaType.APPLICATION_JSON_VALUE,
+//						consumes = MediaType.APPLICATION_JSON_VALUE,
+						headers = "Accept=*/*",
 						path = "{sequencial}")
-	public ResponseEntity<Pessoa> updatePessoa(@PathVariable Long sequencial, 
-												@Valid @RequestBody Pessoa pessoa){
+	public ResponseEntity<Pessoa> updatePessoa( @PathVariable Long sequencial, 
+												Pessoa pessoa){
 		try {
-			if (!pessoaService.findById(sequencial).isPresent() ) {
+			if (!pessoaService.findById(pessoa.getSequencial()).isPresent() ) {
 	//			ResponseEntity.badRequest().build();
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		
 			Pessoa pessoaUpdated = pessoaService.update(pessoa);
 
-			return ResponseEntity.ok( pessoaUpdated );
+			return new ResponseEntity<Pessoa>( HttpStatus.OK );
 		} catch (Exception e) {
 			e.printStackTrace();
 			

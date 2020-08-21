@@ -52,9 +52,9 @@ public class Pessoa {
 	private String nome;
 	
 	@Column(name="datnasc", columnDefinition="DATE", nullable=false)
-	@NotNull(message="Data Inválida")
+//	@NotNull(message="Data Inválida")
 	@DateTimeFormat( iso = ISO.DATE)
-	@Past(message="Data inválida")
+//	@Past(message="Data inválida")
 	private LocalDate datNasc;
 	
 	@Column(length=150, nullable=false)
