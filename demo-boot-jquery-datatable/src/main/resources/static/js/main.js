@@ -147,46 +147,7 @@ $(document).ready(function() {
         var salario = $('#salario').val();
 
 		if (sequencial !== ''){
-			_params = { url : '../pessoa/api',
-						type : 'POST',
-						datatype : 'json',
-						data : { 	sequencial	: null,
-									cpf 		: cpf,
-									nome 		: nome,
-									endereco 	: endereco,
-									cidade 		: cidade,
-									estado 		: estado,
-									cep 		: cep,
-									foneRes 	: foneRes,
-									datNasc 	: datNasc,
-									salario 	: salario 
-								},
-						success : function( data ){
-									pessoaTable.ajax.reload(null, false);
-								}
-						};
-		} else {
-			_params = { url : '../pessoa/api',
-						type : 'PUT',
-						datatype : 'json',
-						data : { 	sequencial	: null,
-									cpf 		: cpf,
-									nome 		: nome,
-									endereco 	: endereco,
-									cidade 		: cidade,
-									estado 		: estado,
-									cep 		: cep,
-									foneRes 	: foneRes,
-									datNasc 	: datNasc,
-									salario 	: salario 
-								},
-						success : function( data ){
-									pessoaTable.ajax.reload(null, false);
-								}
-						};
-		}
-	                            
-        $.ajax(	{ url : '../pessoa/api/' + $('#sequencial').val(),
+			_params = { url : '../pessoa/api/' + $('#sequencial').val(),
 						type : 'PUT',
 						datatype : 'json',
 						data : { sequencial	: $('#sequencial').val(),
@@ -201,13 +162,39 @@ $(document).ready(function() {
 									salario 	: salario 
 								},
 						success : function( data ){
-//									pessoaTable.ajax.reload(null, false);
 									$('#pessoaTable').DataTable().ajax.reload(null, false);
 								},
 						error : function( error ){
 							alert(error);
 						}
-		});			        
+					};
+		} else {
+			_params = { url : '../pessoa/api',
+						type : 'POST',
+						datatype : 'json',
+						data : { 	sequencial	: null,
+									cpf 		: cpf,
+									nome 		: nome,
+									endereco 	: endereco,
+									cidade 		: cidade,
+									estado 		: estado,
+									cep 		: cep,
+									foneRes 	: foneRes,
+									datNasc 	: datNasc,
+									salario 	: salario 
+						},
+						success : function( data ){
+							$('#cpf-busca').val( cpf );
+							$('#nome-busca').val('');
+							$('#btn-pesquisar').click();
+						},
+						error : function( error ){
+							alert(error);
+						}
+					 };
+		}
+	                            
+        $.ajax(	_params );			        
 
 	    $('#modalCRUD').modal('hide');											     			
 	});

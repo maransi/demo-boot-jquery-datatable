@@ -72,8 +72,9 @@ public class PessoaResource {
 	}
 	
 	@RequestMapping( method=RequestMethod.POST, 
-					consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Pessoa> insertPessoa( @Valid @RequestBody  Pessoa pessoa) {
+					headers = "Accept=*/*")
+//					consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Pessoa> insertPessoa( Pessoa pessoa) {
 		try {
 			Pessoa pessoaInserted = pessoaService.insert(pessoa);
 			
