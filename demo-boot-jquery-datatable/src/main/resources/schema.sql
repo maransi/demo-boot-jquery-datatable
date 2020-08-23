@@ -11,3 +11,6 @@ create table pessoa( sequencial   SERIAL NOT NULL PRIMARY KEY,
 
 CREATE INDEX idxPessoa_CPF ON pessoa( cpf );
 
+psql -q -h localhost -d desenv -U supervisor -f /home/marco/git/demo-boot-jquery-datatable/demo-boot-jquery-datatable/src/main/resources/data.sql
+
+
