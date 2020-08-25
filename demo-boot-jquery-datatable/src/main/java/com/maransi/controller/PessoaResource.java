@@ -62,8 +62,6 @@ public class PessoaResource {
 			}
 		}
 
-		System.out.println(pessoas.toString());
-
 		Map<String, List<Pessoa>> mapa = new TreeMap<String, List<Pessoa>>();
 		
 		mapa.put("data", pessoas);
@@ -110,5 +108,28 @@ public class PessoaResource {
 		
 		
 	}
+	
+	@RequestMapping(
+			method=RequestMethod.DELETE, 
+//			produces=MediaType.APPLICATION_JSON_VALUE,
+			path = "{sequencial}"
+	)
+	public ResponseEntity<Pessoa> deletePessoaById(@PathVariable("sequencial") Long sequencial){
+		try {
+			if (!pessoaService.findById(sequencial).isPresent() ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+
+			pessoaService.delete(sequencial);
+			
+			return new ResponseEntity<Pessoa>( HttpStatus.OK );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	
 }

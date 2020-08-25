@@ -128,6 +128,8 @@ $(document).ready(function() {
 	    $('#modalCRUD').modal('show');
 	});
 
+
+	// Incluir e Alterar
 	$('#formulario-pessoa').submit(function(e){                         
 	    e.preventDefault(); //evita el comportambiento normal del submit, es decir, recarga total de la página
 	    
@@ -199,6 +201,36 @@ $(document).ready(function() {
 	    $('#modalCRUD').modal('hide');											     			
 	});
 
+	// Deletar
+	$(document).on("click", ".btnBorrar", function(){
+	    fila = $(this);           
+	    user_id = parseInt($(this).closest('tr').find('td:eq(0)').text()) ;		
+	    opcion = 3; //eliminar        
+
+	    var fila = $(this).closest("tr");	        
+	    var sequencial = parseInt(fila.find('td:eq(1)').text()); //capturo el ID
+	    var cpf = fila.find('td:eq(2)').text();
+	    var nome = fila.find('td:eq(3)').text();
+
+
+	    var resposta = confirm("Confirma a exclusão do CPF " + cpf + " - " + nome); 
+	                   
+	    if (resposta) {
+	        $.ajax({
+	          url: '../pessoa/api/' + sequencial,
+	          type: "DELETE",
+	          datatype:"json",    
+	          success: function() {
+					$('#pessoaTable').DataTable().ajax.reload(null, false);
+					alert('Eliminação concluída com sucesso');
+	           },
+				error : function( error, exception ){
+					alert(error.status + " - " + exception);
+				}
+	           
+	        });	
+	    }
+	 });
 
 
 

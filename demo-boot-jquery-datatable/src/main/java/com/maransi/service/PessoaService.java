@@ -36,4 +36,8 @@ public class PessoaService {
 		return pessoaRepository.save(pessoa);
 	}
 	
+	public void delete( Long sequencial ) throws Exception{
+		pessoaRepository.deleteById(sequencial);
+	}
+	
 }
