@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	moment.locale("pt-br");
+	
 	var table = $("#pessoaTable").DataTable( {	
 					"dom":' <"search"f><"top"l>rt<"bottom"ip><"clear">',
 					"language" : {
@@ -13,7 +15,11 @@ $(document).ready(function() {
 						{"data" : "cidade" }, 
 						{ "data" : "estado" }, 
 						{ "data" : "cep" }, 
-						{"data" : "datNasc" }, 
+						{"data" : "datNasc", 
+									render: function(datNasc){ 
+												return moment(datNasc).format("L"); 
+											} 
+						}, 
 						{"data" : "foneRes"}, 
 						{"data" : "salario", render: $.fn.dataTable.render.number( '.', ',', 2, 'R$' )}
 			        ],
@@ -83,7 +89,11 @@ $(document).ready(function() {
 				{"data" : "cidade" }, 
 				{ "data" : "estado" }, 
 				{ "data" : "cep" }, 
-				{"data" : "datNasc" }, 
+				{"data" : "datNasc", 
+							render: function(datNasc){ 
+										return moment(datNasc).format("L"); 
+									} 
+				}, 
 				{"data" : "foneRes"}, 
 				{"data" : "salario", render: $.fn.dataTable.render.number( '.', ',', 2, 'R$' )}
 	         ],
